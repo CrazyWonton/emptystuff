@@ -2,25 +2,43 @@ import java.lang.*;
 import java.io.*;
 import java.util.*;
 
+/**
+Purpose: 
+Methods:
+**/
 public class AStar {
 	public static final int DIAGONAL_COST = 14;
 	public static final int V_H_COST = 10;
-
+	
+	/**
+	Purpose: 
+	Methods:
+	**/
 	static class Cell{  
 		int heuristicCost = 0; //Heuristic cost
 		int finalCost = 0; //G+H
 		int i, j;
 		Cell parent; 
-
+		
+		/**
+		Purpose: 
+		How it works:
+		Parameters:
+		**/
 		Cell(int i, int j){
 			this.i = i;
 			this.j = j; 
 		}
 
+		/**
+		Purpose: 
+		How it works:
+		Parameters:
+		**/
 		@Override
-			public String toString(){
-				return "["+this.i+", "+this.j+"]";
-			}
+		public String toString(){
+			return "["+this.i+", "+this.j+"]";
+		}
 	}
 
 	//Blocked cells are just null Cell values in grid
@@ -32,20 +50,37 @@ public class AStar {
 	static int startI, startJ;
 	static int endI, endJ;
 
+	/**
+	Purpose: 
+	How it works:
+	Parameters:
+	**/
 	public static void setBlocked(int i, int j){
 		grid[i][j] = null;
 	}
-
+	/**
+	Purpose: 
+	How it works:
+	Parameters:
+	**/
 	public static void setStartCell(int i, int j){
 		startI = i;
 		startJ = j;
 	}
-
+	/**
+	Purpose: 
+	How it works:
+	Parameters:
+	**/
 	public static void setEndCell(int i, int j){
 		endI = i;
 		endJ = j; 
 	}
-
+	/**
+	Purpose: 
+	How it works:
+	Parameters:
+	**/
 	static void checkAndUpdateCost(Cell current, Cell t, int cost){
 		if(t == null || closed[t.i][t.j])return;
 		int t_final_cost = t.heuristicCost+cost;
@@ -57,7 +92,11 @@ public class AStar {
 			if(!inOpen)open.add(t);
 		}
 	}
-
+	/**
+	Purpose: 
+	How it works:
+	Parameters:
+	**/
 	public static void AStar(){ 
 
 		//add the start location to open list.
@@ -116,7 +155,11 @@ public class AStar {
 			}
 		} 
 	}
-
+	/**
+	Purpose: 
+	How it works:
+	Parameters:
+	**/
 	public static long test(int tCase, int x, int y, int si, int sj, int ei, int ej, int[][] blocked){
 		//System.out.println("\n\nTest Case #"+tCase);
 		//Reset
@@ -175,6 +218,11 @@ public class AStar {
 	}
 	static int average = 0;
 	static int numTrials = 0;
+	/**
+	Purpose: 
+	How it works:
+	Parameters:
+	**/
 	public static void generateStuff(int x, int y){
 		//int casenum;
 		//int x=10;
@@ -210,21 +258,42 @@ public class AStar {
 	}
 
 	public static LinkedList<timeTaco> mayo;
+	/**
+	Purpose: 
+	Methods:
+	**/
 	public static class timeTaco{
 		long d;
 		long a;
-
+		/**
+		Purpose: 
+		How it works:
+		Parameters:
+		**/
 		public timeTaco(long dd,long aa){
 			d = dd;
 			a = aa;
 		}
+		/**
+		Purpose: 
+		How it works:
+		Parameters:
+		**/
 		public String toString(){
 			return a + ", " + d;
 		}
 	}
-
+	/**
+	Purpose: 
+	Methods:
+	**/
 	public static class dij{
 		static final int V=9;
+		/**
+		Purpose: 
+		How it works:
+		Parameters:
+		**/
 		int minDistance(int dist[], Boolean sptSet[]){
 			int min = Integer.MAX_VALUE, min_index=-1;
 
@@ -237,7 +306,11 @@ public class AStar {
 
 			return min_index;
 		}
-
+		/**
+		Purpose: 
+		How it works:
+		Parameters:
+		**/
 		void dijkstra(int graph[][], int src)
 		{
 			int dist[] = new int[V];
@@ -266,7 +339,11 @@ public class AStar {
 						dist[v] = dist[u] + graph[u][v];
 			}
 		}
-
+		/**
+		Purpose: 
+		How it works:
+		Parameters:
+		**/
 		public long convertInput(int x, int y, int[][] blocked){
 			int graph [][] = new int[x][y];
 			for(int i=0;i<x;i++)
@@ -287,7 +364,11 @@ public class AStar {
 			return (endTime-startTime);
 		}
 	}
-
+	/**
+	Purpose: 
+	How it works:
+	Parameters:
+	**/
 	public static void main(String[] args) throws IOException{   
 		mayo = new LinkedList<>();
 		generateStuff(100,100);
